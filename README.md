@@ -11,20 +11,14 @@ excludes:
 2. db
 
 
-###setup project
+##setup project
 
 1. change project name in .ddev
 ```
 .ddev/comfig.yaml name: <sym-mic-some-name>
-```
 
-2. install composer packages
-```
-composer install
-```
+ddev composer install
 
-3. start ddev
-```
 ddev start
 ```
 
@@ -34,6 +28,6 @@ ddev desc
 ```
 
 
-###Advanced
+##Advanced
 
 Any additional package can be installed via composer.
