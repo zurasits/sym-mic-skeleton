@@ -1,0 +1,77 @@
+#ddev-generated
+# If you remove the ddev-generated line above you
+# are responsible for maintaining this file. DDEV will not then
+# update it, for example if you add `additional_hostnames`, etc.
+
+http:
+  routers:
+    symfony-web-80-http:
+      entrypoints:
+        - http-80
+      rule: HostRegexp(`^symfony\.ddev\.site$`)
+      
+      service: "symfony-web-80"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "symfony-redirectHttps"
+    symfony-web-8025-http:
+      entrypoints:
+        - http-8025
+      rule: HostRegexp(`^symfony\.ddev\.site$`)
+      
+      service: "symfony-web-8025"
+      ruleSyntax: v3
+      tls: false
+      # middlewares:
+      #   - "symfony-redirectHttps"
+    
+    
+    
+    symfony-web-80-https:
+      entrypoints:
+        - http-443
+      rule: HostRegexp(`^symfony\.ddev\.site$`)
+      
+      service: "symfony-web-80"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    symfony-web-8025-https:
+      entrypoints:
+        - http-8026
+      rule: HostRegexp(`^symfony\.ddev\.site$`)
+      
+      service: "symfony-web-8025"
+      ruleSyntax: v3
+      
+      tls: true
+      
+    
+
+  middlewares:
+    symfony-redirectHttps:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+  services:
+    symfony-web-80:
+      loadbalancer:
+        servers:
+          - url: http://ddev-symfony-web:80
+        
+    symfony-web-8025:
+      loadbalancer:
+        servers:
+          - url: http://ddev-symfony-web:8025
+        
+    
+    
+    
+
+tls:
+  certificates:
+    - certFile: /mnt/ddev-global-cache/traefik/certs/symfony.crt
+      keyFile: /mnt/ddev-global-cache/traefik/certs/symfony.key
